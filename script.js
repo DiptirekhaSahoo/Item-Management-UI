@@ -1,14 +1,14 @@
-// store items here
+// where items will be stored
 const items = [];
 
-// CREATE ITEM
-function createItem() {
+// ADD ITEM
+function addItem() {
   const name = document.getElementById("name").value;
   const description = document.getElementById("description").value;
   const price = Number(document.getElementById("price").value);
 
   const item = {
-    id: items.length + 1, // numeric id
+    id: items.length + 1,
     name,
     description,
     price
@@ -16,34 +16,31 @@ function createItem() {
 
   items.push(item);
 
-  showResult(`✅ Item Created Successfully
+  document.getElementById("result").innerText =
+`✅ Item Created Successfully
 
 ID: ${item.id}
 Name: ${item.name}
 Description: ${item.description}
-Price: ${item.price}`);
+Price: ${item.price}`;
 }
 
-// FIND ITEM
-function findItem() {
-  // ⭐ FIX → convert to number
-  const id = Number(document.getElementById("findId").value);
+// GET ITEM BY ID
+function getItem() {
+  // ⭐ IMPORTANT FIX → convert to number
+  const id = Number(document.getElementById("itemId").value);
 
   const item = items.find(i => i.id === id);
 
   if (item) {
-    showResult(`✅ Item Found
+    document.getElementById("result").innerText =
+`✅ Item Found
 
 ID: ${item.id}
 Name: ${item.name}
 Description: ${item.description}
-Price: ${item.price}`);
+Price: ${item.price}`;
   } else {
-    showResult("❌ Item not found");
+    document.getElementById("result").innerText = "❌ Item not found";
   }
-}
-
-// RESULT DISPLAY
-function showResult(message) {
-  document.getElementById("result").innerText = message;
 }
