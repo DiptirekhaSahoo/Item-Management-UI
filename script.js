@@ -1,4 +1,3 @@
-
 function addItem() {
   const item = {
     name: document.getElementById("name").value,
@@ -16,7 +15,12 @@ function addItem() {
     .then(res => res.json())
     .then(data => {
       document.getElementById("result").textContent =
-        JSON.stringify(data, null, 2);
+        `✅ Item Created Successfully
+
+ID: ${data.id}
+Name: ${data.name}
+Description: ${data.description}
+Price: ${data.price}`;
     })
     .catch(err => {
       document.getElementById("result").textContent = err.message;
