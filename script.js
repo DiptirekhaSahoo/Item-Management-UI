@@ -1,28 +1,49 @@
-function addItem() {
+// store items here
+const items = [];
+
+// CREATE ITEM
+function createItem() {
+  const name = document.getElementById("name").value;
+  const description = document.getElementById("description").value;
+  const price = Number(document.getElementById("price").value);
+
   const item = {
-    name: document.getElementById("name").value,
-    description: document.getElementById("description").value,
-    price: Number(document.getElementById("price").value),
+    id: items.length + 1, // numeric id
+    name,
+    description,
+    price
   };
 
-  fetch("https://item-management-production-fa25.up.railway.app/api/items", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(item),
-  })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("result").textContent =
-        `✅ Item Created Successfully
+  items.push(item);
 
-ID: ${data.id}
-Name: ${data.name}
-Description: ${data.description}
-Price: ${data.price}`;
-    })
-    .catch(err => {
-      document.getElementById("result").textContent = err.message;
-    });
+  showResult(`✅ Item Created Successfully
+
+ID: ${item.id}
+Name: ${item.name}
+Description: ${item.description}
+Price: ${item.price}`);
+}
+
+// FIND ITEM
+function findItem() {
+  // ⭐ FIX → convert to number
+  const id = Number(document.getElementById("findId").value);
+
+  const item = items.find(i => i.id === id);
+
+  if (item) {
+    showResult(`✅ Item Found
+
+ID: ${item.id}
+Name: ${item.name}
+Description: ${item.description}
+Price: ${item.price}`);
+  } else {
+    showResult("❌ Item not found");
+  }
+}
+
+// RESULT DISPLAY
+function showResult(message) {
+  document.getElementById("result").innerText = message;
 }
